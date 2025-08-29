@@ -11,16 +11,16 @@ Easily configurable for different websites and courses
 BASE_URL = "https://7learn.com/panel/video/"
 
 # Video ID range to process
-START_VIDEO_ID = 5627
-END_VIDEO_ID = 5634
+START_VIDEO_ID = 5655
+END_VIDEO_ID = 5655
 
 # Season configuration - number of episodes in each season
 # Index 0 = Season 1, Index 1 = Season 2, etc.
-SEASON_EPISODES = [19, 6, 10, 10, 7, 8]
+SEASON_EPISODES = [19, 6, 10, 10, 7, 8, 18]
 
 # Starting season and episode (1-based indexing)
-STARTING_SEASON = 6
-STARTING_EPISODE = 1
+STARTING_SEASON = 7
+STARTING_EPISODE = 3
 
 # =============================================================================
 # DOWNLOAD SETTINGS
@@ -28,7 +28,8 @@ STARTING_EPISODE = 1
 
 # Output file for download links
 DOWNLOAD_LINKS_FILE = "download_links.txt"
-
+DESTINATION_PATH = "D:\__hossein workshop\program videos\Linux"
+ 
 # Delay between requests to avoid rate limiting (in seconds)
 MIN_DELAY = 3
 MAX_DELAY = 7
