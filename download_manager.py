@@ -91,12 +91,10 @@ class DownloadManager:
         print(f"📁 Number of files: {len(self.download_links)}")
         print("\nChoose an option:")
         print("1. 📥 Download with IDM (Internet Download Manager)")
-        print("2. 🌐 Download with Free Download Manager")
-        print("3. 🦅 Download with EagleGet")
-        print("4. 📋 Copy links to Clipboard")
-        print("5. 🌍 Open links in browser")
-        print("6. 📝 Show file list")
-        print("7. 🔧 Download manager settings")
+        print("2. 📋 Copy links to Clipboard")
+        print("3. 🌍 Open links in browser")
+        print("4. 📝 Show file list")
+        print("5. 🔧 Download manager settings")
         print("0. ❌ Exit")
         
         choice = input("\nYour choice: ").strip()
@@ -122,8 +120,7 @@ class DownloadManager:
                     item['filename'],# Output filename
                     "/p",            # Set destination path
                     DESTINATION_PATH,# Destination path
-                    "/n",            # Don't asking to download
-                    "/s"             # Start download automatically
+                    "/a"             # Add to download list
                 ]
                 
                 result = subprocess.run(cmd, capture_output=True, text=True)
@@ -147,92 +144,10 @@ class DownloadManager:
                 self.logger.error(f"Error with IDM: {e}")
                 print(f"❌ Error downloading {item['filename']}: {e}")
         
+        subprocess.run(["idman", "/s"])             # Start downloading lists
+        
         self.logger.info(f"IDM download completed. {success_count}/{len(self.download_links)} queued")
         print(f"🎉 IDM download started! {success_count}/{len(self.download_links)} files")
-    
-    def download_with_fdm(self) -> None:
-        """Send download links to Free Download Manager."""
-        if not self._validate_links():
-            return
-        
-        self.logger.info("Starting download with Free Download Manager...")
-        print("🚀 Starting download with Free Download Manager...")
-        
-        success_count = 0
-        for i, item in enumerate(self.download_links, 1):
-            try:
-                # FDM command for download
-                cmd = [
-                    "fdm", "download", 
-                    "--output", item['filename'],
-                    item['url']
-                ]
-                
-                result = subprocess.run(cmd, capture_output=True, text=True)
-                
-                if result.returncode == 0:
-                    self.logger.info(f"FDM download queued: {item['filename']}")
-                    print(f"✅ {i}/{len(self.download_links)}: {item['filename']}")
-                    success_count += 1
-                else:
-                    self.logger.warning(f"FDM command failed: {result.stderr}")
-                    print(f"❌ {i}/{len(self.download_links)}: Error in {item['filename']}")
-                
-                time.sleep(0.5)
-                
-            except FileNotFoundError:
-                self.logger.error("Free Download Manager not found in PATH")
-                print("❌ Free Download Manager is not installed!")
-                print("💡 Please install FDM or add its path to the system PATH")
-                return
-            except Exception as e:
-                self.logger.error(f"Error with FDM: {e}")
-                print(f"❌ Error downloading {item['filename']}: {e}")
-        
-        self.logger.info(f"FDM download completed. {success_count}/{len(self.download_links)} queued")
-        print(f"🎉 FDM download started! {success_count}/{len(self.download_links)} files")
-    
-    def download_with_eagleget(self) -> None:
-        """Send download links to EagleGet."""
-        if not self._validate_links():
-            return
-        
-        self.logger.info("Starting download with EagleGet...")
-        print("🚀 Starting download with EagleGet...")
-        
-        success_count = 0
-        for i, item in enumerate(self.download_links, 1):
-            try:
-                # EagleGet command for download
-                cmd = [
-                    "eagleget", "download",
-                    "--output", item['filename'],
-                    item['url']
-                ]
-                
-                result = subprocess.run(cmd, capture_output=True, text=True)
-                
-                if result.returncode == 0:
-                    self.logger.info(f"EagleGet download queued: {item['filename']}")
-                    print(f"✅ {i}/{len(self.download_links)}: {item['filename']}")
-                    success_count += 1
-                else:
-                    self.logger.warning(f"EagleGet command failed: {result.stderr}")
-                    print(f"❌ {i}/{len(self.download_links)}: Error in {item['filename']}")
-                
-                time.sleep(0.5)
-                
-            except FileNotFoundError:
-                self.logger.error("EagleGet not found in PATH")
-                print("❌ EagleGet is not installed!")
-                print("💡 Please install EagleGet or add its path to the system PATH")
-                return
-            except Exception as e:
-                self.logger.error(f"Error with EagleGet: {e}")
-                print(f"❌ Error downloading {item['filename']}: {e}")
-        
-        self.logger.info(f"EagleGet download completed. {success_count}/{len(self.download_links)} queued")
-        print(f"🎉 EagleGet download started! {success_count}/{len(self.download_links)} files")
     
     def copy_to_clipboard(self) -> None:
         """Copy download links to clipboard."""
@@ -303,8 +218,6 @@ class DownloadManager:
         print("To configure download managers, add their paths to your system PATH.")
         print("\nDefault paths:")
         print("• IDM: C:\\Program Files (x86)\\Internet Download Manager\\")
-        print("• FDM: C:\\Program Files\\Free Download Manager\\")
-        print("• EagleGet: C:\\Program Files\\EagleGet\\")
         print("\nHow to add to PATH:")
         print("1. System Properties > Environment Variables")
         print("2. Edit PATH variable")
@@ -332,16 +245,12 @@ class DownloadManager:
             if choice == '1':
                 self.download_with_idm()
             elif choice == '2':
-                self.download_with_fdm()
-            elif choice == '3':
-                self.download_with_eagleget()
-            elif choice == '4':
                 self.copy_to_clipboard()
-            elif choice == '5':
+            elif choice == '3':
                 self.open_in_browser()
-            elif choice == '6':
+            elif choice == '4':
                 self.show_file_list()
-            elif choice == '7':
+            elif choice == '5':
                 self.configure_download_manager()
             elif choice == '0':
                 self.logger.info("User exited the program")
