@@ -6,7 +6,7 @@ A professional, configurable video downloader for educational websites. Easily a
 
 - **🔍 Smart Video Detection**: Multiple regex patterns for finding video URLs
 - **📁 Organized Downloads**: Automatic season/episode naming (S01-E01-Title.mp4)
-- **🚀 Multiple Download Managers**: Support for IDM, FDM, EagleGet, and clipboard
+- **🚀 Multiple Download Managers**: Support for IDM and clipboard
 - **⚡ Rate Limiting Protection**: Built-in delays to avoid server blocking
 - **📊 Comprehensive Logging**: Detailed logs for debugging and monitoring
 - **🌍 Multi-language Support**: Persian and English interface
@@ -81,6 +81,9 @@ TITLE_SELECTORS = [
 
 ### ⏱️ Performance Settings
 ```python
+# Destination path of download files
+DESTINATION_PATH = "C:\destionation_path"
+
 # Delay between requests (seconds)
 MIN_DELAY = 3
 MAX_DELAY = 7
@@ -110,8 +113,6 @@ python download_manager.py
 ```
 Choose from:
 - **IDM**: Internet Download Manager
-- **FDM**: Free Download Manager  
-- **EagleGet**: EagleGet Download Manager
 - **Clipboard**: Copy links for any download manager
 - **Browser**: Open links in web browser
 
