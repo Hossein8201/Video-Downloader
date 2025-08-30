@@ -142,6 +142,7 @@ def show_configuration():
     print(f"  • Starting Season: {STARTING_SEASON}")
     print(f"  • Starting Episode: {STARTING_EPISODE}")
     print(f"  • Seasons: {SEASON_EPISODES}")
+    print(f"  • Destination_path: {DESTINATION_PATH}")
     print(f"  • Delay: {MIN_DELAY}-{MAX_DELAY} seconds")
     print(f"  • Timeout: {REQUEST_TIMEOUT} seconds")
     print(f"  • Max Retries: {MAX_RETRIES}")
