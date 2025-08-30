@@ -11,8 +11,8 @@ Easily configurable for different websites and courses
 BASE_URL = "https://7learn.com/panel/video/"
 
 # Video ID range to process
-START_VIDEO_ID = 5655
-END_VIDEO_ID = 5655
+START_VIDEO_ID = 5662
+END_VIDEO_ID = 5664
 
 # Season configuration - number of episodes in each season
 # Index 0 = Season 1, Index 1 = Season 2, etc.
@@ -20,7 +20,7 @@ SEASON_EPISODES = [19, 6, 10, 10, 7, 8, 18]
 
 # Starting season and episode (1-based indexing)
 STARTING_SEASON = 7
-STARTING_EPISODE = 3
+STARTING_EPISODE = 10
 
 # =============================================================================
 # DOWNLOAD SETTINGS
