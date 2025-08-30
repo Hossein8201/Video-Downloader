@@ -13,7 +13,7 @@ from pathlib import Path
 
 import pyperclip
 
-from config import DOWNLOAD_LINKS_FILE
+from config import DESTINATION_PATH, DOWNLOAD_LINKS_FILE
 
 
 class DownloadManager:
@@ -120,6 +120,9 @@ class DownloadManager:
                     item['url'],     # Video URL
                     "/f",            # Set output filename
                     item['filename'],# Output filename
+                    "/p",            # Set destination path
+                    DESTINATION_PATH,# Destination path
+                    "/n",            # Don't asking to download
                     "/s"             # Start download automatically
                 ]
                 
